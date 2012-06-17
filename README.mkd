@@ -21,6 +21,8 @@ The `core` library holds the common auxiliary functions used in multiple parts o
 
 Additionally, the polished browser-repl integration is part of core.
 
+Please see the Marginalia docs for [more information](http://shoreleave.github.com/shoreleave-core/).
+
 
 Plays well with others
 ----------------------
