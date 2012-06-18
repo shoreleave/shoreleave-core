@@ -25,7 +25,7 @@
     (keyword? x) (name x)
     (map? x) (let [out  (js-obj)]
                (doseq  [[k v] x]
-                 (aset out (name k) (cljs->js v)))
+                 (aset out (name k) (clj->js v)))
                out)
     (coll? x) (apply array (map clj->js x))
     :else x))
