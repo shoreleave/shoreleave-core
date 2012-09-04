@@ -1,4 +1,4 @@
-(defproject shoreleave/shoreleave-core "0.2.1"
+(defproject shoreleave/shoreleave-core "0.2.2"
   :description "A smarter client-side with ClojureScript : Shoreleave's core auxiliary functions"
   :url "http://github.com/shoreleave"
   :license {:name "Eclipse Public License - v 1.0"
