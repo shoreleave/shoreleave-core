@@ -1,6 +1,12 @@
 (ns shoreleave.efunction
   "A Function object abstraction")
 
+;; THIS IS DEPRECATED
+;; -------------------
+;;
+;; ClojureScript Master no includes this exact code
+;; The internal `efunction` will only be used for backwards compatibility.
+
 ;; The Function type is used as a decorator base for functions.
 ;;
 ;; This comes in handy if you want create specialty function types
