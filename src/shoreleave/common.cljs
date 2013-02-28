@@ -14,21 +14,7 @@
 ;; These calls should be used sparingly, as they do depend on CLJS implementation
 ;; details that could change.
 
-;; _This is taken from: https://github.com/ibdknox/jayq/blob/master/src/jayq/util.cljs_
-(defn clj->js
-  "Recursively transforms ClojureScript maps into Javascript objects,
-   other ClojureScript colls into JavaScript arrays, and ClojureScript
-   keywords into JavaScript strings."
-  [x]
-  (cond
-    (string? x) x
-    (keyword? x) (name x)
-    (map? x) (let [out  (js-obj)]
-               (doseq  [[k v] x]
-                 (aset out (name k) (clj->js v)))
-               out)
-    (coll? x) (apply array (map clj->js x))
-    :else x))
+;; `clj->js` is now a proper protocol in CLJS core.
 
 ;; Location bar manipulation
 ;; -------------------------
