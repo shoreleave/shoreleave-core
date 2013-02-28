@@ -3028,8 +3028,8 @@ net.brehaut.ClojureTools = (function (SH) {
     build_tree: build_tree
   };
 })(SyntaxHighlighter);
-</script><title>shoreleave/shoreleave-core -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name">shoreleave/shoreleave-core</h1><h2 class="project-version">0.2.2</h2><br /><p>A smarter client-side with ClojureScript : Shoreleave's core auxiliary functions</p>
-</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.4.0</td></tr></table></div><div class="dependencies"><h3>dev dependencies</h3><table><tr><td class="dep-name">lein-marginalia</td><td class="dotted"><hr /></td><td class="dep-version">0.7.1</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#shoreleave.brepl">shoreleave.brepl</a></li><li><a href="#shoreleave.common">shoreleave.common</a></li><li><a href="#shoreleave.efunction">shoreleave.efunction</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#shoreleave.brepl" name="shoreleave.brepl"><h1 class="project-name">shoreleave.brepl</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</script><title>shoreleave/shoreleave-core -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name">shoreleave/shoreleave-core</h1><h2 class="project-version">0.3.0</h2><br /><p>A smarter client-side with ClojureScript : Shoreleave's core auxiliary functions</p>
+</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.4.0</td></tr></table></div><div class="dependencies"><h3>dev dependencies</h3><table><tr><td class="dep-name">lein-marginalia</td><td class="dotted"><hr /></td><td class="dep-version">0.7.1</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#shoreleave.brepl">shoreleave.brepl</a></li><li><a href="#shoreleave.common">shoreleave.common</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#shoreleave.brepl" name="shoreleave.brepl"><h1 class="project-name">shoreleave.brepl</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns shoreleave.brepl
   (:require [clojure.browser.repl :as repl]))</pre></td></tr><tr><td class="docs"><p>Shorthand for the CLJS browser repl connect call</p>
 </td><td class="codes"><pre class="brush: clojure">(defn connect
@@ -3046,22 +3046,8 @@ or when you're interopating with other JavaScript libraries.</p>
 
 <p>These calls should be used sparingly, as they do depend on CLJS implementation
 details that could change.</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>Recursively transforms ClojureScript maps into Javascript objects,
-   other ClojureScript colls into JavaScript arrays, and ClojureScript
-   keywords into JavaScript strings.</p>
-
-<p><em>This is taken from: https://github.com/ibdknox/jayq/blob/master/src/jayq/util.cljs</em></p>
-</td><td class="codes"><pre class="brush: clojure">(defn clj-&gt;js
-  [x]
-  (cond
-    (string? x) x
-    (keyword? x) (name x)
-    (map? x) (let [out  (js-obj)]
-               (doseq  [[k v] x]
-                 (aset out (name k) (clj-&gt;js v)))
-               out)
-    (coll? x) (apply array (map clj-&gt;js x))
-    :else x))</pre></td></tr><tr><td class="docs"><h2>Location bar manipulation</h2>
+</td><td class="codes"></td></tr><tr><td class="docs"><p><code>clj-&gt;js</code> is now a proper protocol in CLJS core.</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><h2>Location bar manipulation</h2>
 
 <p>Most apps require checking for or modifying the location bar.
 Shoreleave supports converting location-bar data into maps,
@@ -3104,26 +3090,5 @@ If you need to update the location without a page refresh, please see
     (toggle-brepl query-map :brepl))
   ([query-map query-key]
     (when (query-map query-key)
-      (brepl/connect))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#shoreleave.efunction" name="shoreleave.efunction"><h1 class="project-name">shoreleave.efunction</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>A Function object abstraction</p>
-</td><td class="codes"><pre class="brush: clojure">(ns shoreleave.efunction)</pre></td></tr><tr><td class="docs"><p>The Function type is used as a decorator base for functions.</p>
-
-<p>This comes in handy if you want create specialty function types
-(like embedded workers) or want to extend or change the behavior
-of the base function type.</p>
-
-<p>In the <a href="https://github.com/shoreleave/shoreleave-pubsub">pubsub system</a>,
-the Function type is used to decorate functions that can be published to.</p>
-
-<p>These enhanced function types are hashable and support metadata</p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(deftype Function [f meta]
-  IWithMeta
-  (-with-meta  [F meta]  (Function. f meta))
-  IMeta
-  (-meta [F] meta)
-  IFn
-  (-invoke [F &amp; args]
-    (apply (.-f F) args))
-  IHash
-  (-hash [F] (goog.getUid (.-f F))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr></table><div class="footer">Generated by <a href="https://github.com/fogus/marginalia">Marginalia</a>.&nbsp;&nbsp;Syntax highlighting provided by Alex Gorbatchev's <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a></div><script type="text/javascript">SyntaxHighlighter.defaults['gutter'] = false;
+      (brepl/connect))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr></table><div class="footer">Generated by <a href="https://github.com/fogus/marginalia">Marginalia</a>.&nbsp;&nbsp;Syntax highlighting provided by Alex Gorbatchev's <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a></div><script type="text/javascript">SyntaxHighlighter.defaults['gutter'] = false;
        SyntaxHighlighter.all()</script></body></html>
